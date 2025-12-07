@@ -46,7 +46,6 @@
             color: #00d4ff;
         }
         
-        /* 指标卡片 */
         .metrics {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
@@ -63,21 +62,11 @@
             transition: all 0.3s ease;
         }
         
-        .metric-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 40px rgba(0, 212, 255, 0.2);
-        }
-        
+        .metric-card:hover { transform: translateY(-5px); box-shadow: 0 15px 40px rgba(0, 212, 255, 0.2); }
         .metric-value { font-size: 2rem; font-weight: 700; color: #00d4ff; }
         .metric-label { color: #888; margin-top: 5px; font-size: 0.9rem; }
         
-        /* 标签页 */
-        .tabs {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
-        }
+        .tabs { display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; }
         
         .tab-btn {
             padding: 12px 25px;
@@ -96,7 +85,6 @@
         .tab-content { display: none; }
         .tab-content.active { display: block; }
         
-        /* 市值排行 */
         .market-section {
             background: linear-gradient(135deg, #1e1e3f 0%, #2d2d5a 100%);
             border: 1px solid #3d3d7a;
@@ -121,28 +109,23 @@
             align-items: center;
             gap: 15px;
             transition: all 0.3s;
+            cursor: pointer;
         }
         
-        .stock-card:hover { background: rgba(0,212,255,0.1); transform: translateX(5px); }
+        .stock-card:hover { background: rgba(0,212,255,0.15); transform: translateX(5px); }
         
         .stock-rank {
-            width: 35px;
-            height: 35px;
+            width: 35px; height: 35px;
             background: linear-gradient(135deg, #00d4ff, #7b2cbf);
             border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            font-size: 0.9rem;
+            display: flex; align-items: center; justify-content: center;
+            font-weight: bold; font-size: 0.9rem;
         }
         
         .stock-rank.top3 { background: linear-gradient(135deg, #ffd700, #ff6b6b); }
-        
         .stock-info { flex: 1; }
         .stock-name { font-weight: 600; font-size: 1.05rem; }
         .stock-code { color: #888; font-size: 0.85rem; }
-        
         .stock-data { text-align: right; }
         .stock-cap { font-size: 1.1rem; font-weight: 600; color: #4ade80; }
         .stock-price { font-size: 0.85rem; color: #888; }
@@ -150,7 +133,6 @@
         .stock-change.up { color: #ff4444; }
         .stock-change.down { color: #44ff44; }
         
-        /* 图表区 */
         .charts {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
@@ -167,14 +149,8 @@
         
         .chart-card h3 { color: #00d4ff; margin-bottom: 20px; font-size: 1.1rem; }
         
-        /* 四层架构 */
-        .layer {
-            margin: 15px 0;
-            border-radius: 12px;
-            overflow: hidden;
-            transition: all 0.3s ease;
-        }
-        
+        /* 四层架构样式 */
+        .layer { margin: 15px 0; border-radius: 12px; overflow: hidden; transition: all 0.3s ease; }
         .layer:hover { transform: scale(1.01); }
         
         .layer-header {
@@ -206,8 +182,128 @@
         .category { background: rgba(0,0,0,0.3); border-radius: 10px; padding: 15px; }
         .category h4 { color: #00d4ff; margin-bottom: 10px; font-size: 1rem; }
         .company-list { font-size: 0.9rem; color: #aaa; line-height: 1.8; }
-        .company-list span { display: inline-block; background: rgba(255,255,255,0.05); padding: 3px 10px; border-radius: 15px; margin: 3px; transition: all 0.2s; }
-        .company-list span:hover { background: rgba(0,212,255,0.2); color: #00d4ff; }
+        
+        .company-tag {
+            display: inline-block;
+            background: rgba(255,255,255,0.05);
+            padding: 5px 12px;
+            border-radius: 15px;
+            margin: 3px;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 1px solid transparent;
+        }
+        
+        .company-tag:hover {
+            background: rgba(0,212,255,0.2);
+            color: #00d4ff;
+            border-color: #00d4ff;
+            transform: scale(1.05);
+        }
+        
+        /* 企业详情弹窗 */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 1000;
+            backdrop-filter: blur(5px);
+        }
+        
+        .modal-overlay.active { display: flex; align-items: center; justify-content: center; }
+        
+        .modal-content {
+            background: linear-gradient(135deg, #1e1e3f 0%, #2d2d5a 100%);
+            border: 1px solid #3d3d7a;
+            border-radius: 20px;
+            padding: 30px;
+            max-width: 600px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            animation: modalIn 0.3s ease;
+        }
+        
+        @keyframes modalIn {
+            from { opacity: 0; transform: scale(0.9) translateY(-20px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
+        }
+        
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #3d3d7a;
+        }
+        
+        .modal-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(90deg, #00d4ff, #7b2cbf);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .modal-close {
+            width: 35px; height: 35px;
+            background: rgba(255,255,255,0.1);
+            border: none;
+            border-radius: 50%;
+            color: #888;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .modal-close:hover { background: #ff4444; color: white; }
+        
+        .modal-body { line-height: 1.8; }
+        
+        .info-section {
+            margin-bottom: 20px;
+            padding: 15px;
+            background: rgba(0,0,0,0.2);
+            border-radius: 12px;
+        }
+        
+        .info-label {
+            font-size: 0.85rem;
+            color: #888;
+            margin-bottom: 5px;
+        }
+        
+        .info-value {
+            color: #e0e0e0;
+            font-size: 1rem;
+        }
+        
+        .info-highlight {
+            color: #00d4ff;
+            font-weight: 600;
+        }
+        
+        .modal-footer {
+            margin-top: 20px;
+            padding-top: 15px;
+            border-top: 1px solid #3d3d7a;
+            text-align: center;
+        }
+        
+        .modal-link {
+            display: inline-block;
+            padding: 10px 25px;
+            background: linear-gradient(135deg, #00d4ff 0%, #7b2cbf 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 10px;
+            transition: all 0.3s;
+        }
+        
+        .modal-link:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(0,212,255,0.3); }
         
         /* 数据表格 */
         .data-section {
@@ -235,7 +331,8 @@
         .data-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
         .data-table th { background: rgba(0,212,255,0.1); padding: 12px 8px; text-align: left; color: #00d4ff; font-weight: 600; position: sticky; top: 0; }
         .data-table td { padding: 10px 8px; border-bottom: 1px solid #2d2d5a; }
-        .data-table tr:hover { background: rgba(0,212,255,0.05); }
+        .data-table tr { cursor: pointer; transition: all 0.2s; }
+        .data-table tr:hover { background: rgba(0,212,255,0.1); }
         
         .table-container { max-height: 500px; overflow-y: auto; }
         
@@ -266,8 +363,6 @@
         ::-webkit-scrollbar-track { background: #1a1a2e; }
         ::-webkit-scrollbar-thumb { background: #3d3d7a; border-radius: 4px; }
         ::-webkit-scrollbar-thumb:hover { background: #5d5d9a; }
-        
-        #MainMenu, footer { visibility: hidden; }
     </style>
 </head>
 <body>
@@ -287,45 +382,29 @@
             <button class="tab-btn" onclick="switchTab('table')">📋 企业列表</button>
         </div>
         
-        <!-- 市值排行 -->
         <div id="tab-market" class="tab-content active">
             <div class="market-section">
-                <h3>💰 上市公司市值排行榜 TOP20</h3>
+                <h3>💰 上市公司市值排行榜 TOP20 <span style="font-size:0.8rem;color:#888;">(点击查看详情)</span></h3>
                 <div class="market-grid" id="marketRanking"></div>
             </div>
-            
             <div class="charts">
-                <div class="chart-card">
-                    <h3>📊 各层级市值占比</h3>
-                    <canvas id="marketCapChart"></canvas>
-                </div>
-                <div class="chart-card">
-                    <h3>📈 市值TOP10企业</h3>
-                    <canvas id="top10Chart"></canvas>
-                </div>
+                <div class="chart-card"><h3>📊 各层级市值占比</h3><canvas id="marketCapChart"></canvas></div>
+                <div class="chart-card"><h3>📈 市值TOP10企业</h3><canvas id="top10Chart"></canvas></div>
             </div>
         </div>
         
-        <!-- 产业架构 -->
         <div id="tab-architecture" class="tab-content">
+            <p style="color:#888;margin-bottom:15px;">💡 点击企业名称查看详细介绍</p>
             <div id="architecture"></div>
         </div>
         
-        <!-- 数据分析 -->
         <div id="tab-charts" class="tab-content">
             <div class="charts">
-                <div class="chart-card">
-                    <h3>📊 层级分布</h3>
-                    <canvas id="layerChart"></canvas>
-                </div>
-                <div class="chart-card">
-                    <h3>📍 地域分布 TOP10</h3>
-                    <canvas id="locationChart"></canvas>
-                </div>
+                <div class="chart-card"><h3>📊 层级分布</h3><canvas id="layerChart"></canvas></div>
+                <div class="chart-card"><h3>📍 地域分布 TOP10</h3><canvas id="locationChart"></canvas></div>
             </div>
         </div>
         
-        <!-- 企业列表 -->
         <div id="tab-table" class="tab-content">
             <div class="data-section">
                 <div class="search-filter">
@@ -337,13 +416,6 @@
                         <option value="支撑层">支撑层</option>
                         <option value="应用层">应用层</option>
                     </select>
-                    <select id="statusFilter" onchange="filterTable()">
-                        <option value="">全部状态</option>
-                        <option value="A股上市">A股上市</option>
-                        <option value="港股上市">港股上市</option>
-                        <option value="美股上市">美股上市</option>
-                        <option value="未上市">未上市</option>
-                    </select>
                     <a class="download-btn" href="具身智能产业数据库_四层架构版.csv" download>📥 下载数据</a>
                 </div>
                 <div class="table-container">
@@ -353,8 +425,7 @@
                                 <th>层级</th>
                                 <th>企业名称</th>
                                 <th>股票代码</th>
-                                <th>最新市值</th>
-                                <th>涨跌幅</th>
+                                <th>市值/估值</th>
                                 <th>环节分类</th>
                                 <th>核心产品/技术</th>
                             </tr>
@@ -367,15 +438,27 @@
         
         <div class="footer">
             <p>具身智能产业数据库 | 数据来源：行业研究报告、公开市场数据</p>
-            <p>市值数据每周自动更新 | 仅供研究参考</p>
+            <p>📅 2025年12月 | 点击企业可查看详情</p>
+        </div>
+    </div>
+    
+    <!-- 企业详情弹窗 -->
+    <div class="modal-overlay" id="companyModal" onclick="if(event.target===this)closeModal()">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title" id="modalTitle">企业名称</h2>
+                <button class="modal-close" onclick="closeModal()">&times;</button>
+            </div>
+            <div class="modal-body" id="modalBody"></div>
+            <div class="modal-footer" id="modalFooter"></div>
         </div>
     </div>
     
     <script>
         let allData = [];
-        let marketData = [];
+        let companyInfo = {};
         
-        // 切换标签页
+        // 切换标签
         function switchTab(tabId) {
             document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
             document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
@@ -386,11 +469,15 @@
         // 加载数据
         async function loadData() {
             try {
-                // 尝试加载含市值的数据
+                // 加载企业详情
+                try {
+                    const infoRes = await fetch('企业详细信息.json');
+                    if (infoRes.ok) companyInfo = await infoRes.json();
+                } catch(e) { console.log('企业详情加载失败'); }
+                
+                // 加载主数据
                 let response = await fetch('具身智能产业数据库_含市值.csv');
-                if (!response.ok) {
-                    response = await fetch('具身智能产业数据库_四层架构版.csv');
-                }
+                if (!response.ok) response = await fetch('具身智能产业数据库_四层架构版.csv');
                 const csvText = await response.text();
                 
                 Papa.parse(csvText, {
@@ -400,24 +487,97 @@
                         renderDashboard();
                     }
                 });
-                
-                // 尝试加载市值数据
-                try {
-                    const marketResponse = await fetch('市值数据_最新.csv');
-                    if (marketResponse.ok) {
-                        const marketCsv = await marketResponse.text();
-                        Papa.parse(marketCsv, {
-                            header: true,
-                            complete: function(results) {
-                                marketData = results.data.filter(row => row['企业名称']);
-                            }
-                        });
-                    }
-                } catch(e) {}
-                
             } catch (error) {
                 console.error('加载数据失败:', error);
             }
+        }
+        
+        // 打开企业详情弹窗
+        function showCompanyDetail(name) {
+            const modal = document.getElementById('companyModal');
+            const title = document.getElementById('modalTitle');
+            const body = document.getElementById('modalBody');
+            const footer = document.getElementById('modalFooter');
+            
+            title.textContent = name;
+            
+            // 从数据库获取基本信息
+            const dbInfo = allData.find(row => row['企业名称'] === name) || {};
+            // 从详情JSON获取扩展信息
+            const extInfo = companyInfo[name] || {};
+            
+            let html = '';
+            
+            if (extInfo.简介) {
+                html += `<div class="info-section">
+                    <div class="info-label">📝 企业简介</div>
+                    <div class="info-value">${extInfo.简介}</div>
+                </div>`;
+            }
+            
+            if (extInfo.产品 || dbInfo['核心产品/技术']) {
+                html += `<div class="info-section">
+                    <div class="info-label">🔧 核心产品</div>
+                    <div class="info-value info-highlight">${extInfo.产品 || dbInfo['核心产品/技术']}</div>
+                </div>`;
+            }
+            
+            if (extInfo.技术亮点) {
+                html += `<div class="info-section">
+                    <div class="info-label">💡 技术亮点</div>
+                    <div class="info-value">${extInfo.技术亮点}</div>
+                </div>`;
+            }
+            
+            // 市值/融资信息
+            const marketCap = dbInfo['总市值'] || dbInfo['估值/市值'] || extInfo.市值 || extInfo.融资 || extInfo.估值;
+            if (marketCap) {
+                html += `<div class="info-section">
+                    <div class="info-label">💰 市值/估值</div>
+                    <div class="info-value info-highlight">${marketCap}</div>
+                </div>`;
+            }
+            
+            // 其他信息
+            if (dbInfo['层级'] || dbInfo['环节分类']) {
+                html += `<div class="info-section">
+                    <div class="info-label">📊 产业定位</div>
+                    <div class="info-value">${dbInfo['层级'] || ''} · ${dbInfo['环节分类'] || ''} · ${dbInfo['细分环节'] || ''}</div>
+                </div>`;
+            }
+            
+            if (dbInfo['股票代码']) {
+                html += `<div class="info-section">
+                    <div class="info-label">📈 股票代码</div>
+                    <div class="info-value">${dbInfo['股票代码']} (${dbInfo['上市状态'] || ''})</div>
+                </div>`;
+            }
+            
+            if (dbInfo['总部所在地']) {
+                html += `<div class="info-section">
+                    <div class="info-label">📍 总部所在地</div>
+                    <div class="info-value">${dbInfo['总部所在地']}</div>
+                </div>`;
+            }
+            
+            if (!html) {
+                html = '<p style="text-align:center;color:#888;">暂无详细信息</p>';
+            }
+            
+            body.innerHTML = html;
+            
+            // 官网链接
+            if (extInfo.官网) {
+                footer.innerHTML = `<a class="modal-link" href="${extInfo.官网}" target="_blank">🔗 访问官网</a>`;
+            } else {
+                footer.innerHTML = '';
+            }
+            
+            modal.classList.add('active');
+        }
+        
+        function closeModal() {
+            document.getElementById('companyModal').classList.remove('active');
         }
         
         // 渲染仪表板
@@ -427,54 +587,29 @@
             renderArchitecture();
             renderCharts();
             renderTable(allData);
-            updateInfo();
-        }
-        
-        // 更新信息
-        function updateInfo() {
-            const updateTime = allData[0]?.['数据更新时间'] || allData[0]?.['数据更新日期'] || new Date().toLocaleDateString();
-            document.getElementById('updateInfo').textContent = `📅 数据更新: ${updateTime}`;
+            document.getElementById('updateInfo').textContent = '📅 数据更新: 2025年12月';
         }
         
         // 更新指标
         function updateMetrics() {
             const layerCounts = {};
             let listedCount = 0;
-            
             allData.forEach(row => {
                 layerCounts[row['层级']] = (layerCounts[row['层级']] || 0) + 1;
                 if (row['上市状态']?.includes('上市')) listedCount++;
             });
             
             document.getElementById('metrics').innerHTML = `
-                <div class="metric-card">
-                    <div class="metric-value">${allData.length}</div>
-                    <div class="metric-label">数据条目</div>
-                </div>
-                <div class="metric-card">
-                    <div class="metric-value" style="color: #4ade80;">${listedCount}</div>
-                    <div class="metric-label">上市公司</div>
-                </div>
-                <div class="metric-card">
-                    <div class="metric-value" style="color: #4ade80;">${layerCounts['基础层'] || 0}</div>
-                    <div class="metric-label">基础层</div>
-                </div>
-                <div class="metric-card">
-                    <div class="metric-value" style="color: #fbbf24;">${layerCounts['框架层'] || 0}</div>
-                    <div class="metric-label">框架层</div>
-                </div>
-                <div class="metric-card">
-                    <div class="metric-value" style="color: #c084fc;">${layerCounts['支撑层'] || 0}</div>
-                    <div class="metric-label">支撑层</div>
-                </div>
-                <div class="metric-card">
-                    <div class="metric-value" style="color: #60a5fa;">${layerCounts['应用层'] || 0}</div>
-                    <div class="metric-label">应用层</div>
-                </div>
+                <div class="metric-card"><div class="metric-value">${allData.length}</div><div class="metric-label">数据条目</div></div>
+                <div class="metric-card"><div class="metric-value" style="color:#4ade80;">${listedCount}</div><div class="metric-label">上市公司</div></div>
+                <div class="metric-card"><div class="metric-value" style="color:#4ade80;">${layerCounts['基础层']||0}</div><div class="metric-label">基础层</div></div>
+                <div class="metric-card"><div class="metric-value" style="color:#fbbf24;">${layerCounts['框架层']||0}</div><div class="metric-label">框架层</div></div>
+                <div class="metric-card"><div class="metric-value" style="color:#c084fc;">${layerCounts['支撑层']||0}</div><div class="metric-label">支撑层</div></div>
+                <div class="metric-card"><div class="metric-value" style="color:#60a5fa;">${layerCounts['应用层']||0}</div><div class="metric-label">应用层</div></div>
             `;
         }
         
-        // 解析市值数值
+        // 解析市值
         function parseMarketCap(str) {
             if (!str || str === '-') return 0;
             str = str.toString();
@@ -482,101 +617,66 @@
             if (str.includes('万亿')) value *= 10000;
             else if (str.includes('亿')) value *= 1;
             else if (str.includes('万')) value *= 0.0001;
-            if (str.includes('美元')) value *= 7.2;  // 美元转人民币
-            if (str.includes('港元')) value *= 0.92;  // 港元转人民币
+            if (str.includes('美元')) value *= 7.2;
+            if (str.includes('港元')) value *= 0.92;
             return value;
         }
         
         // 渲染市值排行
         function renderMarketRanking() {
-            // 获取有市值数据的公司
             const companies = [];
             const seen = new Set();
             
             allData.forEach(row => {
                 const name = row['企业名称'];
                 if (seen.has(name)) return;
-                
                 const cap = row['总市值'] || row['估值/市值'] || '';
                 const capValue = parseMarketCap(cap);
-                
                 if (capValue > 0) {
                     seen.add(name);
-                    companies.push({
-                        name: name,
-                        code: row['股票代码'] || '-',
-                        layer: row['层级'],
-                        cap: cap,
-                        capValue: capValue,
-                        price: row['最新股价'] || '-',
-                        change: row['涨跌幅%'] || '-'
-                    });
+                    companies.push({ name, code: row['股票代码'] || '-', layer: row['层级'], cap, capValue });
                 }
             });
             
-            // 按市值排序
             companies.sort((a, b) => b.capValue - a.capValue);
-            
-            // 渲染TOP20
             const top20 = companies.slice(0, 20);
-            document.getElementById('marketRanking').innerHTML = top20.map((c, i) => {
-                const changeClass = c.change.includes('-') ? 'down' : 'up';
-                return `
-                    <div class="stock-card">
-                        <div class="stock-rank ${i < 3 ? 'top3' : ''}">${i + 1}</div>
-                        <div class="stock-info">
-                            <div class="stock-name">${c.name}</div>
-                            <div class="stock-code">${c.code} · ${c.layer}</div>
-                        </div>
-                        <div class="stock-data">
-                            <div class="stock-cap">${c.cap}</div>
-                            <div class="stock-price">¥${c.price}</div>
-                            <div class="stock-change ${changeClass}">${c.change}</div>
-                        </div>
-                    </div>
-                `;
-            }).join('');
             
-            // 渲染图表
+            document.getElementById('marketRanking').innerHTML = top20.map((c, i) => `
+                <div class="stock-card" onclick="showCompanyDetail('${c.name}')">
+                    <div class="stock-rank ${i < 3 ? 'top3' : ''}">${i + 1}</div>
+                    <div class="stock-info">
+                        <div class="stock-name">${c.name}</div>
+                        <div class="stock-code">${c.code} · ${c.layer}</div>
+                    </div>
+                    <div class="stock-data">
+                        <div class="stock-cap">${c.cap}</div>
+                    </div>
+                </div>
+            `).join('');
+            
             renderMarketCharts(companies);
         }
         
         // 渲染市值图表
         function renderMarketCharts(companies) {
-            // 各层级市值占比
             const layerCaps = {};
-            companies.forEach(c => {
-                layerCaps[c.layer] = (layerCaps[c.layer] || 0) + c.capValue;
-            });
+            companies.forEach(c => { layerCaps[c.layer] = (layerCaps[c.layer] || 0) + c.capValue; });
             
             new Chart(document.getElementById('marketCapChart'), {
                 type: 'doughnut',
                 data: {
                     labels: Object.keys(layerCaps),
-                    datasets: [{
-                        data: Object.values(layerCaps),
-                        backgroundColor: ['#4ade80', '#fbbf24', '#c084fc', '#60a5fa'],
-                        borderWidth: 0
-                    }]
+                    datasets: [{ data: Object.values(layerCaps), backgroundColor: ['#4ade80', '#fbbf24', '#c084fc', '#60a5fa'], borderWidth: 0 }]
                 },
-                options: {
-                    plugins: {
-                        legend: { position: 'bottom', labels: { color: '#888' } }
-                    }
-                }
+                options: { plugins: { legend: { position: 'bottom', labels: { color: '#888' } } } }
             });
             
-            // TOP10柱状图
             const top10 = companies.slice(0, 10);
             new Chart(document.getElementById('top10Chart'), {
                 type: 'bar',
                 data: {
                     labels: top10.map(c => c.name),
-                    datasets: [{
-                        data: top10.map(c => c.capValue),
-                        backgroundColor: '#00d4ff',
-                        borderRadius: 5
-                    }]
+                    datasets: [{ data: top10.map(c => c.capValue), backgroundColor: '#00d4ff', borderRadius: 5 }]
                 },
                 options: {
                     indexAxis: 'y',
@@ -621,8 +721,7 @@
                                     <div class="category">
                                         <h4>${cat} (${companies.length})</h4>
                                         <div class="company-list">
-                                            ${companies.slice(0, 8).map(c => `<span>${c}</span>`).join('')}
-                                            ${companies.length > 8 ? `<span>...等${companies.length}家</span>` : ''}
+                                            ${companies.map(c => `<span class="company-tag" onclick="event.stopPropagation();showCompanyDetail('${c}')">${c}</span>`).join('')}
                                         </div>
                                     </div>
                                 `).join('')}
@@ -635,7 +734,6 @@
         
         // 渲染分析图表
         function renderCharts() {
-            // 层级分布
             const layerCounts = {};
             allData.forEach(row => { layerCounts[row['层级']] = (layerCounts[row['层级']] || 0) + 1; });
             
@@ -643,22 +741,13 @@
                 type: 'doughnut',
                 data: {
                     labels: ['基础层', '框架层', '支撑层', '应用层'],
-                    datasets: [{
-                        data: [layerCounts['基础层']||0, layerCounts['框架层']||0, layerCounts['支撑层']||0, layerCounts['应用层']||0],
-                        backgroundColor: ['#4ade80', '#fbbf24', '#c084fc', '#60a5fa'],
-                        borderWidth: 0
-                    }]
+                    datasets: [{ data: [layerCounts['基础层']||0, layerCounts['框架层']||0, layerCounts['支撑层']||0, layerCounts['应用层']||0], backgroundColor: ['#4ade80', '#fbbf24', '#c084fc', '#60a5fa'], borderWidth: 0 }]
                 },
                 options: { plugins: { legend: { position: 'bottom', labels: { color: '#888' } } } }
             });
             
-            // 地域分布
             const locationCounts = {};
-            allData.forEach(row => {
-                const loc = row['总部所在地'];
-                if (loc) locationCounts[loc] = (locationCounts[loc] || 0) + 1;
-            });
-            
+            allData.forEach(row => { if (row['总部所在地']) locationCounts[row['总部所在地']] = (locationCounts[row['总部所在地']] || 0) + 1; });
             const sortedLocs = Object.entries(locationCounts).sort((a,b) => b[1]-a[1]).slice(0, 10);
             
             new Chart(document.getElementById('locationChart'), {
@@ -680,38 +769,32 @@
         
         // 渲染表格
         function renderTable(data) {
-            document.getElementById('tableBody').innerHTML = data.map(row => {
-                const change = row['涨跌幅%'] || '-';
-                const changeClass = change.includes('-') ? 'down' : (change !== '-' ? 'up' : '');
-                return `
-                    <tr>
-                        <td><span class="layer-tag tag-${row['层级']}">${row['层级']}</span></td>
-                        <td><strong>${row['企业名称']}</strong></td>
-                        <td>${row['股票代码'] || '-'}</td>
-                        <td>${row['总市值'] || row['估值/市值'] || '-'}</td>
-                        <td class="stock-change ${changeClass}">${change}</td>
-                        <td>${row['环节分类'] || ''}</td>
-                        <td>${row['核心产品/技术'] || ''}</td>
-                    </tr>
-                `;
-            }).join('');
+            document.getElementById('tableBody').innerHTML = data.map(row => `
+                <tr onclick="showCompanyDetail('${row['企业名称']}')">
+                    <td><span class="layer-tag tag-${row['层级']}">${row['层级']}</span></td>
+                    <td><strong>${row['企业名称']}</strong></td>
+                    <td>${row['股票代码'] || '-'}</td>
+                    <td>${row['总市值'] || row['估值/市值'] || '-'}</td>
+                    <td>${row['环节分类'] || ''}</td>
+                    <td>${row['核心产品/技术'] || ''}</td>
+                </tr>
+            `).join('');
         }
         
         // 筛选表格
         function filterTable() {
             const search = document.getElementById('searchInput').value.toLowerCase();
             const layer = document.getElementById('layerFilter').value;
-            const status = document.getElementById('statusFilter').value;
-            
             const filtered = allData.filter(row => {
                 const matchSearch = !search || (row['企业名称'] || '').toLowerCase().includes(search);
                 const matchLayer = !layer || row['层级'] === layer;
-                const matchStatus = !status || (row['上市状态'] || '').includes(status);
-                return matchSearch && matchLayer && matchStatus;
+                return matchSearch && matchLayer;
             });
-            
             renderTable(filtered);
         }
+        
+        // ESC关闭弹窗
+        document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
         
         // 初始化
         loadData();
